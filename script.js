@@ -61,5 +61,17 @@ keys.addEventListener('click', e => {
             ) {
                 key.classList.add('is-depressed');
             }
-    }
-})
+        }
+    })
+    //When the user hits a number key after an operator key
+    keys.addEventListener('click', e => {
+        if (e.target.matches('button')) {
+            const key = e.target;
+            const action = key.dataset.action;
+            
+            //remove .is-depressed class from all keys
+            Array.from(key.parentNode.children)
+                .forEach(k => k.classList.remove('is-depressed'));
+        }
+    })
+    
