@@ -48,5 +48,18 @@ keys.addEventListener('click', e => {
                 display.textContent = displayedNum + keyContent;
             }
         }
+        //When the user hits the decimal key
+        if (action === 'decimal') {
+            display.textContent = displayedNum + '.'
+        }
+        //When the user hits an operator key
+        if (
+            action === 'add' ||
+            action === 'subtract' ||
+            action === 'multiply' ||
+            action === 'divide'
+            ) {
+                key.classList.add('is-depressed');
+            }
     }
 })

@@ -58,3 +58,6 @@ button {
     border-bottom-left-radius: 20px;
     
 }
+button.is-depressed {
+    background-color: rgb(218, 218, 139);
+}
