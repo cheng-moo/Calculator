@@ -14,7 +14,7 @@ function divide (n1, n2) {
 }
 //Operator Function 
 
-function operator (operator, n1, n2) {
+function operatorFun (operator, n1, n2) {
     if (operator === '+') {
         add(n1, n2);
     } else if (operator === '-') {
@@ -31,3 +31,21 @@ numBtns.forEach(btn => btn.addEventListener('click', displayVal))
 function displayVal (e) {
     display.textContent = e.target.textContent;
 }
+const operators = document.querySelector('.operators');
+const operatorsBtns = operators.querySelectorAll('button');
+const equal = document.getElementById('equal');
+operatorsBtns.forEach(btn => btn.addEventListener('click', store))
+function store (e) {
+    let operator = e.target.textContent;
+    let firstNum = parseInt(display.textContent);
+    console.log(operator)
+    console.log(firstNum)
+    equal.addEventListener('click', runOperate)
+    function runOperate() {
+        console.log(operatorFun(operator, firstNum, 2));
+        
+    }
+    
+}
+
+
