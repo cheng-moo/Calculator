@@ -79,26 +79,28 @@ keys.addEventListener('click', e => {
             //When the user hits the equals key
             //info needed: first num, operator, second num
             if (action === 'calculate') {
-                const calculate = (n1, operator, n2) => {
-                    let result = '';
-
-                    if (operator === 'add') {
-                        result = parseFloat(n1) + parseFloat(n2);
-                    } else if (operator === 'subtract') {
-                        result = parseFloat(n1) - parseFloat(n2);
-                    } else if (operator === 'multiply') {
-                        result = parseFloat(n1) * parseFloat(n2);
-                    } else if (operator === 'divide') {
-                        result = parseFloat(n1) / parseFloat(n2);
-                    }
-                    return result;
-                }
                 const firstValue = calculator.dataset.firstValue;
                 const operator = calculator.dataset.operator;
                 const secondValue = displayedNum;
-
-                display.textContent = calculate(firstValue, operator, secondValue);
+                if (firstValue && operator && previousKeyType !== 'operator') {
+                    display.textContent = calculate(firstValue, operator, secondValue);
+                }
                 calculator.dataset.previousKeyType = 'calculate'
             }
         }
     })
+    
+    const calculate = (n1, operator, n2) => {
+        let result = '';
+
+        if (operator === 'add') {
+            result = parseFloat(n1) + parseFloat(n2);
+        } else if (operator === 'subtract') {
+            result = parseFloat(n1) - parseFloat(n2);
+        } else if (operator === 'multiply') {
+            result = parseFloat(n1) * parseFloat(n2);
+        } else if (operator === 'divide') {
+            result = parseFloat(n1) / parseFloat(n2);
+        }
+        return result;
+    }
