@@ -83,6 +83,9 @@ keys.addEventListener('click', e => {
                 const operator = calculator.dataset.operator;
                 const secondValue = displayedNum;
                 if (firstValue && operator && previousKeyType !== 'operator') {
+                    if (previousKeyType === 'calculate') {
+                        firstValue = displayedNum;
+                    }
                     const calcValue = calculate(firstValue, operator, secondValue);
                     display.textContent = calcValue;
 
