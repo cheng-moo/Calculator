@@ -73,6 +73,9 @@ keys.addEventListener('click', e => {
                 calculator.dataset.firstValue = displayedNum;
                 calculator.dataset.operator = action;
             }
+            if (action === 'clear') {
+                calculator.dataset.previousKeyType = 'clear'
+            }
             //When the user hits the equals key
             //info needed: first num, operator, second num
             if (action === 'calculate') {
