@@ -28,3 +28,25 @@ keys.addEventListener('click', e => {
        }
     }
 })
+//When the user hits a number key
+// Needed info : num of the key that was clicked
+// And the current displayed number
+const display = document.querySelector('.calculator__display')
+
+keys.addEventListener('click', e => {
+    if (e.target.matches('button')) {
+        const key = e.target;
+        const action = key.dataset.action;
+        const keyContent = key.textContent;
+        const displayedNum = display.textContent;
+        console.log(key, action, keyContent, displayedNum);
+
+        if (!action) {
+            if (displayedNum === '0') {
+                display.textContent = keyContent;
+            } else {
+                display.textContent = displayedNum + keyContent;
+            }
+        }
+    }
+})
