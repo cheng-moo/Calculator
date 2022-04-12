@@ -95,6 +95,8 @@ keys.addEventListener('click', e => {
                     //if there are no calculations, set displayedNum as the firstValue
                     calculator.dataset.firstValue = displayedNum;
                 }
+                //set modValue attribute
+                calculator.dataset.modValue = secondValue;
                 calculator.dataset.previousKeyType = 'calculate'
             }
         }
