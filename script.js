@@ -113,6 +113,13 @@ keys.addEventListener('click', e => {
                     
                  }
                 }
+
+                //Using createResultString function
+                keys.addEventListener('click', e => {
+                    if (e.target.matches('button')) return
+                    const displayedNum = display.textContent;
+                    const resultString = createResultString(e.target, displayedNum, calculator.dataset)
+                })
                 if (
                     action === 'add' ||
                     action === 'subtract' ||
