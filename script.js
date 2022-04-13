@@ -45,7 +45,7 @@ keys.addEventListener('click', e => {
         //remove .is-depressed class from all keys
         Array.from(key.parentNode.children)
         .forEach(k => k.classList.remove('is-depressed'));
-        const createResultString = () => {
+        const createResultString = (key, displayedNum, state) => {
             //Variables required are:
             //1. keyContent
             //2. displayedNum
@@ -54,6 +54,13 @@ keys.addEventListener('click', e => {
             //5. calculator.dataset.firstValue
             //6. calculator.dataset.operator
             //7. calculator.dataset.modValue
+            const keyContent = key.textContent;
+            const action = key.dataset.action;
+            const firstValue = state.firstValue;
+            const modValue = state.modValue;
+            const operator = state.operator;
+            const previousKeyType = state.previousKeyType;
+            //... Refactor as necessary
             
             if (!action) {
                 return displayedNum === '0' ||
