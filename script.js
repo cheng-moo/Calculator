@@ -134,6 +134,7 @@ keys.addEventListener('click', e => {
                     //2. calculator
                     //3. calculatedValue
                     //4. displayedNum
+                    //5. modValue
 
                     const keyType = getKeyType(key);
                     calculator.dataset.previousKeyType = keyType;
@@ -173,7 +174,11 @@ keys.addEventListener('click', e => {
                         clearButton.textContent = 'CE';
 
                     }
-                    if (keyType === 'calculate') {}
+                    if (keyType === 'calculate') {
+                        calculator.dataset.modValue = firstValue && previousKeyType === 'calculate'
+                        ? modValue
+                        : displayedNum
+                    }
                 }
                 if (
                     action === 'add' ||
