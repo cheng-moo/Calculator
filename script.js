@@ -53,6 +53,7 @@ keys.addEventListener('click', e => {
             //4. action
             //5. calculator.dataset.firstValue
             //6. calculator.dataset.operator
+            //7. calculator.dataset.modValue
             
             if (!action) {
                 return displayedNum === '0' ||
@@ -91,7 +92,19 @@ keys.addEventListener('click', e => {
                         ? calculate(firstValue, operator, displayedNum)
                         : displayedNum;
                     }
-                     if (action === 'clear') return 0;
+                    if (action === 'clear') return 0;
+                    if (action === 'calculate') {
+                    let firstValue = calculator.dataset.firstValue;
+                    const operator = calculator.dataset.operator;
+                    let modValue = calculator.dataset.modValue;
+        
+                     return firstValue
+                     ? previousKeyType === 'calculate'
+                        ? calculate(displayedNum, operator, modValue)
+                        : calculate(firstValue, operator, displayedNum) 
+                     : displayedNum;
+                    
+                 }
                 }
                 if (
                     action === 'add' ||
@@ -126,18 +139,6 @@ keys.addEventListener('click', e => {
             //When the user hits the equals key
             //info needed: first num, operator, second num
             if (action === 'calculate') {
-                let firstValue = calculator.dataset.firstValue;
-                const operator = calculator.dataset.operator;
-                let secondValue = displayedNum;
-
-                if (firstValue) {
-                    if (previousKeyType === 'calculate') {
-                        firstValue = displayedNum;
-                        secondValue = calculator.dataset.modValue;
-                    }
-                    display.textContent = calculate(firstValue, operator, secondValue);
-                    
-                }
                 if (
                     firstValue &&
                      operator &&
