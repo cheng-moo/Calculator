@@ -110,8 +110,15 @@ keys.addEventListener('click', e => {
             //Using createResultString function
             keys.addEventListener('click', e => {
                 if (e.target.matches('button')) return
+                const key = e.target;
                 const displayedNum = display.textContent;
-                const resultString = createResultString(e.target, displayedNum, calculator.dataset)
+                //Pure functions
+                const resultString = createResultString(key, displayedNum, calculator.dataset)
+
+                //Update states
+                display.textContent = resultString;
+                updateCalculatorState(key, calculator, resultString, displayedNum);
+                updateVisualState(key, calculator);
             })
             
             //getKeyType function
@@ -178,6 +185,21 @@ keys.addEventListener('click', e => {
                         calculator.dataset.modValue = firstValue && previousKeyType === 'calculate'
                         ? modValue
                         : displayedNum
+                    }
+                }
+                const updateVisualState = (key, calculator) => {
+                    const keyType = getKeyType(key)
+                    Array.from(key.parentNode.children).forEach(k => k.classList.remove('is-depressed'));
+
+                    if (keyType === 'operator') key.classList.add('is-depressed');
+
+                    if (keyType === 'clear' && key.textContent !== 'AC') {
+                        key.textContent = 'AC'
+                    }
+
+                    if (keyType !== 'clear') {
+                        const clearButton = calculator.querySelector('[data-action=clear]')
+                        clearButton.textContent = 'CE';
                     }
                 }
                 if (
