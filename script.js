@@ -81,7 +81,14 @@ keys.addEventListener('click', e => {
                 calculator.dataset.firstValue = displayedNum;
                 calculator.dataset.operator = action;
             }
+            if (action !== 'clear') {
+                const clearButton = calculator.querySelector('[data-action = clear]');
+                clearButton.textContent = 'CE';
+            }
             if (action === 'clear') {
+                //clear has two uses
+                //AC to clear all and resets initial state (default)
+                //CE clears current entry and keeps prev numbers in memory
                 calculator.dataset.previousKeyType = 'clear'
             }
             //When the user hits the equals key
