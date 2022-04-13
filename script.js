@@ -99,7 +99,12 @@ keys.addEventListener('click', e => {
                     display.textContent = calculate(firstValue, operator, secondValue);
                     
                 }
-                if (firstValue && operator && previousKeyType !== 'operator') {
+                if (
+                    firstValue &&
+                     operator &&
+                     previousKeyType !== 'operator' &&
+                     previousKeyType !== 'calculate'
+                  ) {
                     const calcValue = calculate(firstValue, operator, secondValue);
                     display.textContent = calcValue;
 
