@@ -128,7 +128,7 @@ keys.addEventListener('click', e => {
                     return action
                 }
                 //updateCalculatorState Function
-                const updateCalculatorState = (key) => {
+                const updateCalculatorState = (key, calculator, calculatedValue, displayedNum) => {
                     //Variables and properties needed
                     //1. key
                     //2. calculator
