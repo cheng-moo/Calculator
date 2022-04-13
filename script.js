@@ -41,11 +41,7 @@ keys.addEventListener('click', e => {
         const displayedNum = display.textContent;
         console.log(key, action, keyContent, displayedNum);
         const previousKeyType = calculator.dataset.previousKeyType;
-        //When the user hits a number key after an operator key
-        //remove .is-depressed class from all keys
-        Array.from(key.parentNode.children)
-        .forEach(k => k.classList.remove('is-depressed'));
-
+        
         const createResultString = (key, displayedNum, state) => {
             //Variables required are:
             //1. keyContent
@@ -63,6 +59,7 @@ keys.addEventListener('click', e => {
             const previousKeyType = state.previousKeyType;
             //... Refactor as necessary
             const keyType = getKeyType(key)
+            
             if (keyType === 'number') {
                 return displayedNum === '0' ||
                 previousKeyType === 'operator' ||
@@ -85,50 +82,81 @@ keys.addEventListener('click', e => {
                 }
                 //When the user hits an operator key
                 if (keyType === 'operator') {
-                        const firstValue = calculator.dataset.firstValue;
-                        const operator = calculator.dataset.operator;
-                        
-                        return firstValue &&
-                        operator &&
-                        previousKeyType !== 'operator' &&
-                        previousKeyType !== 'calculate'
-                        ? calculate(firstValue, operator, displayedNum)
-                        : displayedNum;
-                    }
-                    if (keyType === 'clear') return 0;
-                    if (keyType === 'calculate') {
+                    const firstValue = calculator.dataset.firstValue;
+                    const operator = calculator.dataset.operator;
+                    
+                    return firstValue &&
+                    operator &&
+                    previousKeyType !== 'operator' &&
+                    previousKeyType !== 'calculate'
+                    ? calculate(firstValue, operator, displayedNum)
+                    : displayedNum;
+                }
+                if (keyType === 'clear') return 0;
+                if (keyType === 'calculate') {
                     let firstValue = calculator.dataset.firstValue;
                     const operator = calculator.dataset.operator;
                     let modValue = calculator.dataset.modValue;
-        
-                     return firstValue
-                     ? previousKeyType === 'calculate'
-                        ? calculate(displayedNum, operator, modValue)
-                        : calculate(firstValue, operator, displayedNum) 
-                     : displayedNum;
                     
-                 }
+                    return firstValue
+                    ? previousKeyType === 'calculate'
+                    ? calculate(displayedNum, operator, modValue)
+                    : calculate(firstValue, operator, displayedNum) 
+                    : displayedNum;
+                    
                 }
-
-                //Using createResultString function
-                keys.addEventListener('click', e => {
-                    if (e.target.matches('button')) return
-                    const displayedNum = display.textContent;
-                    const resultString = createResultString(e.target, displayedNum, calculator.dataset)
-                })
-
-                //getKeyType function
-                const getKeyType = (key) => {
-                    const { action } = key.dataset;
-                    if (!action) return 'number';
-                    if (
-                        action === 'add' ||
-                        action === 'subtract' ||
-                        action === 'multiply' ||
-                        action === 'divide'
+            }
+            
+            //Using createResultString function
+            keys.addEventListener('click', e => {
+                if (e.target.matches('button')) return
+                const displayedNum = display.textContent;
+                const resultString = createResultString(e.target, displayedNum, calculator.dataset)
+            })
+            
+            //getKeyType function
+            const getKeyType = (key) => {
+                const { action } = key.dataset;
+                if (!action) return 'number';
+                if (
+                    action === 'add' ||
+                    action === 'subtract' ||
+                    action === 'multiply' ||
+                    action === 'divide'
                     ) return 'operator'
                     //For everything else
                     return action
+                }
+                //updateCalculatorState Function
+                const updateCalculatorState = (key) => {
+                    //Variables and properties needed
+                    //1. key
+                    //2. calculator
+                    //3. calculatedValue
+                    //4. displayedNum
+                    
+                    const keyType = getKeyType(key);
+                    calculator.dataset.previousKeyType = keyType;
+                    //When the user hits a number key after an operator key
+                    //remove .is-depressed class from all keys
+                    Array.from(key.parentNode.children)
+                    .forEach(k => k.classList.remove('is-depressed'));
+                    
+                    if (keyType === 'number') {}
+                    if (keyType === 'decimal') {}
+                    if (keyType === 'operator') {
+                        key.classList.add('is-depressed')
+                        calculator.dataset.operator = key.dataset.action;
+                        calculator.dataset.firstValue = firstValue &&
+                             operator &&
+                             previousKeyType !== 'operator' &&
+                             previousKeyType !== 'calculate'
+                          ? calculatedValue
+                          : displayedNum;
+                          
+                    }
+                    if (keyType === 'clear') {}
+                    if (keyType === 'calculate') {}
                 }
                 if (
                     action === 'add' ||
