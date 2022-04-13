@@ -45,6 +45,7 @@ keys.addEventListener('click', e => {
         //remove .is-depressed class from all keys
         Array.from(key.parentNode.children)
         .forEach(k => k.classList.remove('is-depressed'));
+
         const createResultString = (key, displayedNum, state) => {
             //Variables required are:
             //1. keyContent
@@ -61,8 +62,8 @@ keys.addEventListener('click', e => {
             const operator = state.operator;
             const previousKeyType = state.previousKeyType;
             //... Refactor as necessary
-            
-            if (!action) {
+            const keyType = getKeyType(key)
+            if (keyType === 'number') {
                 return displayedNum === '0' ||
                 previousKeyType === 'operator' ||
                 previousKeyType === 'calculate'
@@ -72,7 +73,7 @@ keys.addEventListener('click', e => {
                 calculator.dataset.previousKeyType = 'number';
             }
             //When the user hits the decimal key
-            if (action === 'decimal') {
+            if (keyType === 'decimal') {
                 if(!displayedNum.includes('.')) return displayedNum + '.'
                 if (
                     previousKeyType === 'operator' ||
@@ -83,12 +84,7 @@ keys.addEventListener('click', e => {
                     calculator.dataset.previousKeyType = 'decimal';
                 }
                 //When the user hits an operator key
-                if (
-                    action === 'add' ||
-                    action === 'subtract' ||
-                    action === 'multiply' ||
-                    action === 'divide'
-                    ) {
+                if (keyType === 'operator') {
                         const firstValue = calculator.dataset.firstValue;
                         const operator = calculator.dataset.operator;
                         
@@ -99,8 +95,8 @@ keys.addEventListener('click', e => {
                         ? calculate(firstValue, operator, displayedNum)
                         : displayedNum;
                     }
-                    if (action === 'clear') return 0;
-                    if (action === 'calculate') {
+                    if (keyType === 'clear') return 0;
+                    if (keyType === 'calculate') {
                     let firstValue = calculator.dataset.firstValue;
                     const operator = calculator.dataset.operator;
                     let modValue = calculator.dataset.modValue;
@@ -120,6 +116,20 @@ keys.addEventListener('click', e => {
                     const displayedNum = display.textContent;
                     const resultString = createResultString(e.target, displayedNum, calculator.dataset)
                 })
+
+                //getKeyType function
+                const getKeyType = (key) => {
+                    const { action } = key.dataset;
+                    if (!action) return 'number';
+                    if (
+                        action === 'add' ||
+                        action === 'subtract' ||
+                        action === 'multiply' ||
+                        action === 'divide'
+                    ) return 'operator'
+                    //For everything else
+                    return action
+                }
                 if (
                     action === 'add' ||
                     action === 'subtract' ||
