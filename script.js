@@ -134,7 +134,7 @@ keys.addEventListener('click', e => {
                     //2. calculator
                     //3. calculatedValue
                     //4. displayedNum
-                    
+
                     const keyType = getKeyType(key);
                     calculator.dataset.previousKeyType = keyType;
                     //When the user hits a number key after an operator key
@@ -155,7 +155,24 @@ keys.addEventListener('click', e => {
                           : displayedNum;
                           
                     }
-                    if (keyType === 'clear') {}
+                    if (keyType === 'clear') {
+                             //clear has two uses
+                             //AC to clear all and resets initial state (default)
+                             //CE clears current entry and keeps prev numbers in memory
+                        if (key.textContent === 'AC') {
+                        calculator.dataset.firstValue = '';
+                        calculator.dataset.modValue = '';
+                        calculator.dataset.operator = '';
+                        calculator.dataset.previousKeyType = '';
+                        } else {
+                        key.textContent = 'AC';
+                       }
+                    }
+                    if (keyType !== 'clear') {
+                        const clearButton = calculator.querySelector('[data-action = clear]');
+                        clearButton.textContent = 'CE';
+
+                    }
                     if (keyType === 'calculate') {}
                 }
                 if (
