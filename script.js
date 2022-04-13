@@ -46,7 +46,10 @@ keys.addEventListener('click', e => {
         Array.from(key.parentNode.children)
             .forEach(k => k.classList.remove('is-depressed'));
         if (!action) {
-            if (displayedNum === '0' || previousKeyType === 'operator') {
+            if (displayedNum === '0' ||
+             previousKeyType === 'operator' ||
+             previousKeyType === 'calculate'
+             ) {
                 display.textContent = keyContent;
             } else {
                 display.textContent = displayedNum + keyContent;
@@ -57,7 +60,12 @@ keys.addEventListener('click', e => {
         if (action === 'decimal') {
             if(!displayedNum.includes('.')) {
             display.textContent = displayedNum + '.'
-            };
+            } else if (
+                previousKeyType === 'operator' ||
+                previousKeyType === 'calculate'
+            ) {
+                display.textContent = '0.';
+            }
             calculator.dataset.previousKeyType = 'decimal';
         }
         //When the user hits an operator key
