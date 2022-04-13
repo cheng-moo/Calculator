@@ -45,16 +45,22 @@ keys.addEventListener('click', e => {
         //remove .is-depressed class from all keys
         Array.from(key.parentNode.children)
             .forEach(k => k.classList.remove('is-depressed'));
-        if (!action) {
-            if (displayedNum === '0' ||
-             previousKeyType === 'operator' ||
-             previousKeyType === 'calculate'
-             ) {
-                display.textContent = keyContent;
-            } else {
-                display.textContent = displayedNum + keyContent;
+        const createResultString = () => {
+            //Variables required are:
+            //1. keyContent
+            //2. displayedNum
+            //3. previousKeyType
+            //4. action
+            
+            if (!action) {
+                return displayedNum === '0' ||
+                previousKeyType === 'operator' ||
+                previousKeyType === 'calculate'
+                ? keyContent
+                : displayedNum + keyContent;
+                
+                calculator.dataset.previousKeyType = 'number';
             }
-            calculator.dataset.previousKeyType = 'number';
         }
         //When the user hits the decimal key
         if (action === 'decimal') {
