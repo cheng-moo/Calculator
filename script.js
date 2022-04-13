@@ -89,6 +89,8 @@ keys.addEventListener('click', e => {
                 //clear has two uses
                 //AC to clear all and resets initial state (default)
                 //CE clears current entry and keeps prev numbers in memory
+                display.textContent = 0;
+                key.textContent = 'AC';
                 calculator.dataset.previousKeyType = 'clear'
             }
             //When the user hits the equals key
