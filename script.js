@@ -79,14 +79,19 @@ keys.addEventListener('click', e => {
             //When the user hits the equals key
             //info needed: first num, operator, second num
             if (action === 'calculate') {
-                const firstValue = calculator.dataset.firstValue;
+                let firstValue = calculator.dataset.firstValue;
                 const operator = calculator.dataset.operator;
-                const secondValue = displayedNum;
-                if (firstValue && operator && previousKeyType !== 'operator') {
+                let secondValue = displayedNum;
+
+                if (firstValue) {
                     if (previousKeyType === 'calculate') {
                         firstValue = displayedNum;
                         secondValue = calculator.dataset.modValue;
                     }
+                    display.textContent = calculate(firstValue, operator, secondValue);
+                    
+                }
+                if (firstValue && operator && previousKeyType !== 'operator') {
                     const calcValue = calculate(firstValue, operator, secondValue);
                     display.textContent = calcValue;
 
