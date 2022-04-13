@@ -51,7 +51,7 @@ keys.addEventListener('click', e => {
             //2. displayedNum
             //3. previousKeyType
             //4. action
-            
+
             if (!action) {
                 return displayedNum === '0' ||
                 previousKeyType === 'operator' ||
@@ -61,18 +61,17 @@ keys.addEventListener('click', e => {
                 
                 calculator.dataset.previousKeyType = 'number';
             }
-        }
-        //When the user hits the decimal key
-        if (action === 'decimal') {
-            if(!displayedNum.includes('.')) {
-            display.textContent = displayedNum + '.'
-            } else if (
-                previousKeyType === 'operator' ||
-                previousKeyType === 'calculate'
-            ) {
-                display.textContent = '0.';
+            //When the user hits the decimal key
+            if (action === 'decimal') {
+                if(!displayedNum.includes('.')) return displayedNum + '.'
+                if (
+                    previousKeyType === 'operator' ||
+                    previousKeyType === 'calculate'
+                ) return '0.';
+                return displayedNum;
+                
+                calculator.dataset.previousKeyType = 'decimal';
             }
-            calculator.dataset.previousKeyType = 'decimal';
         }
         //When the user hits an operator key
         if (
