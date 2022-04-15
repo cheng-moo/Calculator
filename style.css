@@ -38,8 +38,13 @@ body {
     grid-template-rows: 50px repeat(4, 62px);
     width: 100%;
 }
+.del {
+    grid-row: 2/3;
+    grid-column: 4/5;
+    width: 100%;
+}
 .key--equal {
-    grid-row: 2/-1;
+    grid-row: 3/-1;
     grid-column: 4/5;
     width: 100%;
     background-color: rgb(225, 160, 31);
